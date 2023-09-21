@@ -1,6 +1,7 @@
 #include <vector>
 #include <stdio.h>
 #include <iostream>
+#include <queue>
 
 class Vertice;
 
@@ -22,6 +23,12 @@ class Vertice
 public:
     int id;
     std::vector<Aresta> listaArestas;
+
+    int estado = 0;
+    int d = 0;
+    Vertice *p = nullptr;
+
+
 
     Vertice(int id) : id(id){}
 };
@@ -111,22 +118,22 @@ public:
     }
 
 
-    std::vector<Vertice> adj(Vertice* v)
+    std::vector<Vertice*> adj(Vertice* v)
     {
-        std::vector<Vertice> listaAdj;
+        std::vector<Vertice*> listaAdj;
         for (Aresta aresta : v->listaArestas ) 
         {
             if (aresta.destino->id != v->id)
             {
-                listaAdj.push_back(*(aresta.destino));
+                listaAdj.push_back(aresta.destino);
             }
             else if (aresta.origem->id != v->id)
             {
-                listaAdj.push_back(*(aresta.origem));
+                listaAdj.push_back(aresta.origem);
             }
             else
             {
-                listaAdj.push_back(*v);
+                listaAdj.push_back(v);
             }
             
         }
@@ -246,6 +253,52 @@ public:
         std::cout << "\nArestas: \n";
         aresta();
     }
+
+    void BFS(Grafo *g, Vertice *vInicial)
+    {
+        for (auto& v : g->listaVertices)
+        {
+            v.d = 0;
+            v.p = nullptr;
+            v.estado = 0;
+        }
+
+        vInicial->estado = 1;
+        vInicial->d = 0;
+        std::queue<Vertice *> q;
+        q.push(vInicial);
+        
+        while (!q.empty())
+        {
+            Vertice *u = q.front();
+            q.pop();
+            if (u->d == 0)
+            {
+                std::cout << "P("<< u->id <<") = NULL\n";
+            }
+            else
+            {
+                std::cout << "P("<< u->id <<") = " << u->p->id << "\n";
+            }
+            
+            for (auto &v : g->adj(u))
+            {
+                if (v->estado == 0)
+                {
+                    q.push(v);
+                    v->estado = 1;
+                    v->p = u;
+                    v->d = u->d + 1;
+                }
+            }
+
+            u->estado = -1;
+        } 
+    }
+
+
+
+
 };
 
 
@@ -269,27 +322,32 @@ int main(int argc, char const *argv[])
 
     grafodaora.InsereA(&v1,&v2);
     grafodaora.InsereA(&v2,&v3);
+    grafodaora.InsereA(&v3,&v4);
     grafodaora.InsereA(&v4,&v5);
     grafodaora.InsereA(&v5,&v6);
     grafodaora.InsereA(&v6,&v4);
-    grafodaora.InsereA(&v1,&v6);
+    // grafodaora.InsereA(&v1,&v6);
 
 
     grafodaora.vertice();
     grafodaora.aresta();
 
-    std::vector<Vertice> listaadjv1 = grafodaora.adj(&v1);
+    std::vector<Vertice*> listaadjv1 = grafodaora.adj(&v1);
 
-    for (Vertice vertice : listaadjv1) 
+    for (auto vertice : listaadjv1) 
     {
-        std::cout << vertice.id << " ";
+        std::cout << vertice->id << " ";
     }
 
-    grafodaora.RemoveA(&v1,&v2);
+    //grafodaora.RemoveA(&v1,&v2);
     std::cout << "\n";
     grafodaora.aresta();
 
     grafodaora.descreve();
+    std::cout << "Busca:\n";
+    grafodaora.BFS(&grafodaora,&v1);
+
+
 
     return 0;
 }
