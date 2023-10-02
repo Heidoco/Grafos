@@ -48,6 +48,14 @@ void Grafo::InsereA(Vertice* v1, Vertice* v2)
     v2->listaArestas.push_back(a);
 }
 
+void Grafo::InsereA(Vertice* v1, Vertice* v2, int id)
+{
+    Aresta a(v1,v2,id);
+    listaArestas.push_back(a);
+    v1->listaArestas.push_back(a);
+    v2->listaArestas.push_back(a);
+}
+
 void Grafo::RemoveA(Vertice* v1, Vertice* v2) 
 {
     for (auto it = listaArestas.begin(); it != listaArestas.end(); ++it) 
@@ -72,6 +80,21 @@ void Grafo::RemoveA(Vertice* v1, Vertice* v2)
         {
             v2->listaArestas.erase(it);
             break;
+        }
+    }
+}
+
+void Grafo::RemoveA(int id)
+{
+    for (auto it = listaArestas.begin(); it != listaArestas.end();)
+    {
+        if (it->id == id)
+        {
+            it = listaArestas.erase(it);
+        }
+        else
+        {
+            it++;
         }
     }
 }

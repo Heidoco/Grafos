@@ -1,6 +1,7 @@
 #include "grafo.h"
 #include "buscaLargura.h"
 #include "buscaProfundidade.h"
+#include "Hierholzer.h"
 
 int main()
 {
@@ -20,13 +21,13 @@ int main()
     grafodaora.insereV(v5);
     grafodaora.insereV(v6);
 
-    grafodaora.InsereA(&v1,&v2);
-    grafodaora.InsereA(&v2,&v3);
-    grafodaora.InsereA(&v3,&v4);
-    grafodaora.InsereA(&v4,&v5);
-    grafodaora.InsereA(&v5,&v6);
-    grafodaora.InsereA(&v6,&v4);
-    // grafodaora.InsereA(&v1,&v6);
+    grafodaora.InsereA(&v1,&v2, 1);
+    grafodaora.InsereA(&v2,&v3, 2);
+    grafodaora.InsereA(&v3,&v4, 3);
+    grafodaora.InsereA(&v4,&v5, 4);
+    grafodaora.InsereA(&v5,&v6, 5);
+    //grafodaora.InsereA(&v6,&v4);
+    grafodaora.InsereA(&v6,&v1, 6);
 
 
     grafodaora.vertice();
@@ -56,7 +57,15 @@ int main()
     BuscaP.DFS(&grafodaora,&v1);
     std::cout <<"\nCaminho de v1 ate v5 na busca em profundidade: \n";
     BuscaP.ImprimeCaminho(&grafodaora, &v1, &v5);
-    BuscaP.ResumeBusca(&grafodaora);
+
+    Hierholzer Ciclo;
+    std::vector<Vertice*> cicloe;
+    cicloe = Ciclo.CicloEuleriano_Hierholzer(grafodaora, &v1);
+    std::cout << "Ciclo Euleriano: \n";
+    for (auto vertice : cicloe) 
+    {
+        std::cout << vertice->id << " ";
+    }
 
     return 0;
 }

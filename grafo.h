@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <queue>
-#include "map"
+#include <map>
 
 
 class Grafo
@@ -27,9 +27,10 @@ public:
     void insereV(Vertice vertice);
     void RemoveV(int id);
     void InsereA(Vertice* v1, Vertice* v2);
-    void RemoveA(Vertice* v1, Vertice* v2); 
+    void InsereA(Vertice* v1, Vertice* v2, int id);
+    void RemoveA(Vertice* v1, Vertice* v2);
+    void RemoveA(int id); 
     void descreve();
-    void BFS(Grafo *g, Vertice *vInicial);
 
     std::vector<Vertice*> adj(Vertice* v);
     std::vector<Vertice*> listarVertices();

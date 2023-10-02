@@ -14,6 +14,7 @@ public:
     Vertice* destino;
     int id;
 
+    Aresta();
     Aresta(Vertice* origem, Vertice* destino);
     Aresta(Vertice* origem, Vertice* destino, int id);
 
