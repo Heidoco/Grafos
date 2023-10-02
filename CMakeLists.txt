@@ -4,7 +4,7 @@ project(Grafos VERSION 0.1.0 LANGUAGES C CXX)
 include(CTest)
 enable_testing()
 
-add_executable(Grafos main.cpp aresta.cpp vertice.cpp grafo.cpp)
+add_executable(Grafos main.cpp aresta.cpp vertice.cpp buscaLargura.cpp buscaProfundidade.cpp grafo.cpp)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

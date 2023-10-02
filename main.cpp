@@ -1,4 +1,6 @@
 #include "grafo.h"
+#include "buscaLargura.h"
+#include "buscaProfundidade.h"
 
 int main()
 {
@@ -43,9 +45,18 @@ int main()
 
     grafodaora.descreve();
     std::cout << "Busca:\n";
-    grafodaora.BFS(&grafodaora,&v1);
 
+    BuscaLargura BuscaL;
 
+    BuscaL.BFS(&grafodaora,&v1);
+    std::cout <<"Caminho de v1 ate v5: \n";
+    BuscaL.imprimeCaminho(&v5);
+
+    BuscaProfundidade BuscaP;
+    BuscaP.DFS(&grafodaora,&v1);
+    std::cout <<"\nCaminho de v1 ate v5 na busca em profundidade: \n";
+    BuscaP.ImprimeCaminho(&grafodaora, &v1, &v5);
+    BuscaP.ResumeBusca(&grafodaora);
 
     return 0;
 }

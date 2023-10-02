@@ -214,42 +214,14 @@ void Grafo::descreve()
     aresta();
 }
 
-void Grafo::BFS(Grafo *g, Vertice *vInicial)
+std::vector<Vertice*> Grafo::listarVertices()
 {
-    for (auto& v : g->listaVertices)
+    std::vector<Vertice*> vertices;
+
+    for (Vertice& v : listaVertices)
     {
-        v.d = 0;
-        v.p = nullptr;
-        v.estado = 0;
+        vertices.push_back(&v);
     }
-    vInicial->estado = 1;
-    vInicial->d = 0;
-    std::queue<Vertice *> q;
-    q.push(vInicial);
     
-    while (!q.empty())
-    {
-        Vertice *u = q.front();
-        q.pop();
-        if (u->d == 0)
-        {
-            std::cout << "P("<< u->id <<") = NULL\n";
-        }
-        else
-        {
-            std::cout << "P("<< u->id <<") = " << u->p->id << "\n";
-        }
-        
-        for (auto &v : g->adj(u))
-        {
-            if (v->estado == 0)
-            {
-                q.push(v);
-                v->estado = 1;
-                v->p = u;
-                v->d = u->d + 1;
-            }
-        }
-        u->estado = -1;
-    } 
+    return vertices;
 }

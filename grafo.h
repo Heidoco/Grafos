@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <iostream>
 #include <queue>
+#include "map"
+
 
 class Grafo
 {
@@ -30,6 +32,7 @@ public:
     void BFS(Grafo *g, Vertice *vInicial);
 
     std::vector<Vertice*> adj(Vertice* v);
+    std::vector<Vertice*> listarVertices();
     std::vector<Vertice*> verticesA(int id); 
     std::vector<Aresta> arestasE(Vertice *v);
     std::vector<Aresta> arestasS(Vertice *v);
