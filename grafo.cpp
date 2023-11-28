@@ -56,6 +56,14 @@ void Grafo::InsereA(Vertice* v1, Vertice* v2, int id)
     v2->listaArestas.push_back(a);
 }
 
+void Grafo::InsereA(Vertice* v1, Vertice* v2, int id, int peso)
+{
+    Aresta a(v1,v2,id, peso);
+    listaArestas.push_back(a);
+    v1->listaArestas.push_back(a);
+    v2->listaArestas.push_back(a);
+}
+
 void Grafo::RemoveA(Vertice* v1, Vertice* v2) 
 {
     for (auto it = listaArestas.begin(); it != listaArestas.end(); ++it) 
@@ -121,21 +129,17 @@ std::vector<Vertice*> Grafo::adj(Vertice* v)
     return listaAdj;
 }
 
-int Grafo::getA(Vertice *v1, Vertice *v2)
+Aresta* Grafo::getA(Vertice* v1, Vertice* v2)
 {
-    for (Aresta aresta : listaArestas )
+    for (Aresta& aresta : listaArestas)
     {
-        if ((aresta.origem == v1 && aresta.destino == v2) || (aresta.origem == v2 && aresta.destino  == v1)) 
+        if ((aresta.origem == v1 && aresta.destino == v2) || (aresta.origem == v2 && aresta.destino == v1))
         {
-           return aresta.id;
+            return &aresta;
         }
-        else
-        {
-            return -1;
-        }
-    } 
+    }
 
-    return -1;
+    return nullptr;
 }
 
 int Grafo::grauE(Vertice *v)

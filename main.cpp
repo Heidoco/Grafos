@@ -2,6 +2,7 @@
 #include "buscaLargura.h"
 #include "buscaProfundidade.h"
 #include "Hierholzer.h"
+#include "dijkstra.h"
 
 int main()
 {
@@ -21,13 +22,13 @@ int main()
     grafodaora.insereV(v5);
     grafodaora.insereV(v6);
 
-    grafodaora.InsereA(&v1,&v2, 1);
-    grafodaora.InsereA(&v2,&v3, 2);
-    grafodaora.InsereA(&v3,&v4, 3);
-    grafodaora.InsereA(&v4,&v5, 4);
-    grafodaora.InsereA(&v5,&v6, 5);
+    grafodaora.InsereA(&v1,&v2, 1 ,10);
+    grafodaora.InsereA(&v2,&v3, 2, 20);
+    grafodaora.InsereA(&v3,&v4, 3, 17);
+    grafodaora.InsereA(&v4,&v5, 4, 55);
+    grafodaora.InsereA(&v5,&v6, 5, 10000);
     //grafodaora.InsereA(&v6,&v4);
-    grafodaora.InsereA(&v6,&v1, 6);
+    grafodaora.InsereA(&v6,&v1, 6, 8);
 
 
     grafodaora.vertice();
@@ -67,5 +68,20 @@ int main()
         std::cout << vertice->id << " ";
     }
 
+    Dijkstra menorCaminho;
+
+
+    // Execute o algoritmo de Dijkstra
+    menorCaminho.dijkstra(grafodaora, &v1);
+
+    // Imprima caminhos mínimos de "A" para outros vértices
+    for (auto destino : grafodaora.listarVertices()) {
+        if (destino != &v1) {
+            std::cout << "Caminho de Vi para " << destino->id << ":\n";
+            menorCaminho.imprimeCaminho(grafodaora, &v1, destino);
+        }
+    }
+
     return 0;
 }
+ 

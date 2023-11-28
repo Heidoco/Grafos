@@ -65,5 +65,7 @@ std::vector<Vertice*> Hierholzer::CicloEuleriano_Hierholzer(Grafo g, Vertice *v)
 
     }
 
+    circuitoEuleriano.push_back(circuitoEuleriano[0]);
+
     return circuitoEuleriano;
 }
