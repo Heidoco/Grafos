@@ -3,6 +3,7 @@
 #include "buscaProfundidade.h"
 #include "Hierholzer.h"
 #include "dijkstra.h"
+#include "coloracao.h"
 
 int main()
 {
@@ -71,16 +72,20 @@ int main()
     Dijkstra menorCaminho;
 
 
-    // Execute o algoritmo de Dijkstra
+    //Dijkstra
     menorCaminho.dijkstra(grafodaora, &v1);
 
-    // Imprima caminhos mínimos de "A" para outros vértices
+    // Caminhos mínimos
     for (auto destino : grafodaora.listarVertices()) {
         if (destino != &v1) {
             std::cout << "Caminho de Vi para " << destino->id << ":\n";
             menorCaminho.imprimeCaminho(grafodaora, &v1, destino);
         }
     }
+
+    Coloracao Cor;
+
+    Cor.colorirGrafo(&grafodaora,3);
 
     return 0;
 }
